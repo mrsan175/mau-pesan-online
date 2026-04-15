@@ -2,8 +2,15 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { ScrollToTop } from "@/components/scroll-to-top";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import NextTopLoader from "nextjs-toploader";
+import { Toaster } from "sonner";
+import Providers from "@/components/Providers";
+import CartDrawer from "@/components/CartDrawer";
+import Navbar from "@/components/home/Navbar";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +37,28 @@ export default function RootLayout({
       lang="en"
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Providers>
+          <TooltipProvider>
+            <NextTopLoader
+              color="#C2410C"
+              initialPosition={0.08}
+              crawlSpeed={200}
+              height={3}
+              crawl={true}
+              showSpinner={false}
+              easing="ease"
+              speed={200}
+              shadow="0 0 10px #C2410C,0 0 5px #C2410C"
+            />
+            <Navbar />
+            <CartDrawer />
+            {children}
+            <Toaster richColors position="bottom-right" />
+          </TooltipProvider>
+          <ScrollToTop />
+        </Providers>
+      </body>
     </html>
   );
 }
