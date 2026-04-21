@@ -84,10 +84,6 @@ export default function HomePage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Text */}
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-orange-300/40 bg-orange-500/10 px-4 py-1.5 text-sm text-orange-600 font-semibold mb-6">
-                <span className="h-2 w-2 rounded-full bg-orange-500 animate-pulse" />
-                Belanja Produk UMKM Lokal
-              </div>
 
               <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold leading-tight tracking-tight mb-6">
                 Pesan Produk{" "}

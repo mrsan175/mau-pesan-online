@@ -114,7 +114,6 @@ export async function getCurrentUser() {
                 where: eq(users.id, stored.userId),
             });
             if (user && user.isActive) {
-                // Rotate refresh token & issue new access token
                 const newRefresh = await rotateRefreshToken(
                     refreshTokenPlain,
                     user.id,

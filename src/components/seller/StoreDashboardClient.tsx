@@ -9,8 +9,7 @@ import { toast } from "sonner";
 import Link from "next/link";
 import {
   Store, Package, Settings, ExternalLink, ArrowLeft,
-  Loader2, Plus, PenSquare, Trash2, Building2, Smartphone, X,
-  TrendingUp, ShoppingBag, Eye, Star, CheckCircle, Clock,
+  Loader2, Plus, PenSquare, Trash2, Building2, Smartphone, X, ShoppingBag, Eye, CheckCircle, Clock,
   AlertCircle, ArrowUpRight, ArrowDownRight, BarChart3, Activity,
 } from "lucide-react";
 import { UploadButton } from "@/lib/uploadthing-client";
@@ -29,7 +28,6 @@ import {
   Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend,
 } from "recharts";
 
-// ─── Tipe Data ─────────────────────────────────────────────────────────────
 type StoreData = {
   id: string;
   name: string;
@@ -134,8 +132,8 @@ function StatCard({
           </div>
           {trend && trendValue && (
             <div className={`flex items-center gap-1 text-xs font-semibold rounded-full px-2 py-1 ${trend === "up" ? "bg-green-100 text-green-700" :
-                trend === "down" ? "bg-red-100 text-red-700" :
-                  "bg-muted text-muted-foreground"
+              trend === "down" ? "bg-red-100 text-red-700" :
+                "bg-muted text-muted-foreground"
               }`}>
               {trend === "up" ? <ArrowUpRight className="h-3 w-3" /> : trend === "down" ? <ArrowDownRight className="h-3 w-3" /> : null}
               {trendValue}
@@ -150,7 +148,6 @@ function StatCard({
   );
 }
 
-// ─── MAIN COMPONENT ──────────────────────────────────────────────────────────
 export default function StoreDashboardClient({ initialStore }: { initialStore: StoreData }) {
   const [store, setStore] = useState<StoreData>(initialStore);
   const [products, setProducts] = useState<ProductData[]>([]);
@@ -268,7 +265,7 @@ export default function StoreDashboardClient({ initialStore }: { initialStore: S
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       {/* ── Store Header Banner ── */}
-      <div className="rounded-2xl bg-gradient-to-br from-orange-500 via-red-500 to-pink-600 p-6 text-white shadow-xl shadow-orange-500/20 relative overflow-hidden">
+      <div className="rounded-2xl bg-linear-to-br from-orange-500 via-red-500 to-pink-600 p-6 text-white shadow-xl shadow-orange-500/20 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-32 translate-x-20" />
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-24 -translate-x-12" />
         <div className="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -309,8 +306,8 @@ export default function StoreDashboardClient({ initialStore }: { initialStore: S
             key={key}
             onClick={() => setTab(key)}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${activeTab === key
-                ? "bg-orange-500 text-white shadow-md shadow-orange-500/25"
-                : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
+              ? "bg-orange-500 text-white shadow-md shadow-orange-500/25"
+              : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
               }`}
           >
             <Icon className="h-4 w-4" />
@@ -722,7 +719,7 @@ export default function StoreDashboardClient({ initialStore }: { initialStore: S
       {/* ══════════════════════════════════════════════════════════ */}
       <Dialog open={isProductDialogOpen} onOpenChange={setIsProductDialogOpen}>
         <DialogContent className="sm:max-w-lg rounded-2xl p-0 flex flex-col max-h-[90vh]">
-          <div className={`p-6 pb-5 border-b rounded-t-2xl shrink-0 ${editingProduct ? "bg-gradient-to-r from-blue-50 to-indigo-50" : "bg-gradient-to-r from-orange-50 to-amber-50"}`}>
+          <div className={`p-6 pb-5 border-b rounded-t-2xl shrink-0 ${editingProduct ? "bg-linear-to-r from-blue-50 to-indigo-50" : "bg-linear-to-r from-orange-50 to-amber-50"}`}>
             <div className="flex items-center gap-3">
               <div className={`h-10 w-10 rounded-xl flex items-center justify-center ${editingProduct ? "bg-blue-100" : "bg-orange-100"}`}>
                 {editingProduct ? <PenSquare className="h-5 w-5 text-blue-600" /> : <Plus className="h-5 w-5 text-orange-600" />}

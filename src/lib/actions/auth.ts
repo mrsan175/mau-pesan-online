@@ -16,7 +16,6 @@ export async function loginAction(data: LoginInput) {
 
     const { identifier, password } = parsed.data;
 
-    // Check by username OR email
     const userArray = await db.select().from(users).where(
         or(
             eq(users.username, identifier),
@@ -30,24 +29,21 @@ export async function loginAction(data: LoginInput) {
         return { error: "Invalid username/email or password" };
     }
 
-    // Verify Password
     const isValid = await verifyPassword(password, user.password);
 
     if (!isValid) {
         return { error: "Invalid username/email or password" };
     }
 
-    // Generate JWT edge token
     const accessToken = await signAccessToken(user.id, user.role);
 
-    // Set secure cookie
     const cookieStore = await cookies();
     cookieStore.set("access_token", accessToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
         path: "/",
-        maxAge: 24 * 60 * 60, // 1 day limit as in session.ts
+        maxAge: 24 * 60 * 60,
     });
 
     let redirectUrl = "/";
@@ -66,15 +62,14 @@ export async function registerAction(data: RegisterInput) {
     const { fullName, username, email, password } = parsed.data;
 
     try {
-        // Check if user exists
-        const existing = await db.select().from(users).where(
+        const existingUser = await db.select().from(users).where(
             or(
                 eq(users.username, username),
                 eq(users.email, email)
             )
         );
 
-        if (existing.length > 0) {
+        if (existingUser.length > 0) {
             return { error: "Username or email already in use" };
         }
 
@@ -90,7 +85,6 @@ export async function registerAction(data: RegisterInput) {
 
         return { success: "Account created successfully" };
     } catch (e: any) {
-        // Return inner error so we can view it directly on the form
         return { error: e.message || "Something went wrong during registration" };
     }
 }

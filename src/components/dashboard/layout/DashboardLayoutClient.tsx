@@ -127,7 +127,7 @@ function SidebarContent({
       <div className="px-5 py-5 border-b border-border/60">
         <Link href="/" className="flex items-center gap-3 group">
           <div className="h-10 w-10 rounded-2xl bg-linear-to-br from-orange-500 to-red-600 flex items-center justify-center shadow-md shadow-orange-500/25 group-hover:scale-105 transition-transform shrink-0">
-            <span className="text-lg">🛍</span>
+            <span className="text-lg text-white">🛍</span>
           </div>
           <div className="min-w-0">
             <p className="font-extrabold text-sm text-foreground leading-tight truncate">Mau Pesan Online</p>
@@ -211,8 +211,7 @@ function SidebarContent({
 
       {/* Bottom — Plan Card + User */}
       <div className="px-3 pb-4 space-y-3">
-        {/* Plan card — like PRO PLAN in reference */}
-        <div className="bg-linear-to-br from-orange-50 to-amber-50 border border-orange-100 rounded-2xl p-3.5">
+        {/* <div className="bg-linear-to-br from-orange-50 to-amber-50 border border-orange-100 rounded-2xl p-3.5">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[10px] font-extrabold text-orange-600 uppercase tracking-widest">Starter Plan</span>
           </div>
@@ -223,9 +222,8 @@ function SidebarContent({
             <div className="h-full w-3/5 bg-linear-to-r from-orange-500 to-red-500 rounded-full" />
           </div>
           <p className="text-[10px] text-orange-600/60 mt-1">60% kapasitas terpakai</p>
-        </div>
+        </div> */}
 
-        {/* User + logout */}
         <button
           onClick={handleLogout}
           disabled={loggingOut}

@@ -31,7 +31,6 @@ interface Props {
   userName: string;
 }
 
-// ─── Generate weekly chart data ───────────────────────────────────────────────
 const DAYS = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"];
 const generateWeekly = () =>
   DAYS.map((day, i) => ({
@@ -40,7 +39,6 @@ const generateWeekly = () =>
     WA_Diklik: Math.floor(5 + Math.random() * 35 + (i >= 4 ? 10 : 0)),
   }));
 
-// ─── Custom Tooltip ───────────────────────────────────────────────────────────
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   return (
@@ -59,21 +57,18 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   );
 };
 
-// ─── Stock Badge ──────────────────────────────────────────────────────────────
 function StockBadge({ isActive }: { isActive: boolean }) {
   return (
-    <Badge 
+    <Badge
       variant={isActive ? "default" : "secondary"}
-      className={`text-[10px] font-bold px-2 py-0.5 pointer-events-none ${
-        isActive ? "bg-green-100 text-green-700 hover:bg-green-100" : "bg-orange-100 text-orange-700 hover:bg-orange-100"
-      }`}
+      className={`text-[10px] font-bold px-2 py-0.5 pointer-events-none ${isActive ? "bg-green-100 text-green-700 hover:bg-green-100" : "bg-orange-100 text-orange-700 hover:bg-orange-100"
+        }`}
     >
       {isActive ? "IN STOCK" : "NON-AKTIF"}
     </Badge>
   );
 }
 
-// ─── Relative Time ────────────────────────────────────────────────────────────
 function relativeTime(date: Date | null): string {
   if (!date) return "Baru saja";
   const diff = Date.now() - new Date(date).getTime();
@@ -85,7 +80,6 @@ function relativeTime(date: Date | null): string {
   return `${d} hari lalu`;
 }
 
-// ─── Greeting ────────────────────────────────────────────────────────────────
 function greeting() {
   const h = new Date().getHours();
   if (h < 11) return "Selamat pagi";
@@ -94,7 +88,6 @@ function greeting() {
   return "Selamat malam";
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
 export function SellerOverviewDashboard({ stores, userName }: Props) {
   const [weeklyData] = useState(generateWeekly);
 
@@ -103,7 +96,6 @@ export function SellerOverviewDashboard({ stores, userName }: Props) {
   const activeProducts = allProducts.filter((p) => p.isActive).length;
   const activeStores = stores.filter((s) => s.isActive).length;
 
-  // Recently added — sort by createdAt desc, take 5
   const recentProducts = [...allProducts]
     .sort((a, b) => {
       const aT = a.createdAt ? new Date(a.createdAt).getTime() : 0;
@@ -117,14 +109,13 @@ export function SellerOverviewDashboard({ stores, userName }: Props) {
       storeSlug: stores.find((s) => s.id === p.storeId)?.slug ?? "",
     }));
 
-  // Tip category (most products)
+
   const categoryMap: Record<string, number> = {};
   allProducts.forEach((p) => { categoryMap[p.category] = (categoryMap[p.category] || 0) + 1; });
   const topCategory = Object.entries(categoryMap).sort((a, b) => b[1] - a[1])[0]?.[0] ?? "Makanan";
 
   return (
     <div className="max-w-7xl mx-auto">
-      {/* ── Header Row ────────────────────────────────────────────────────── */}
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-7">
         <div>
           <h1 className="text-3xl font-extrabold text-foreground tracking-tight">Performa Akun</h1>
@@ -146,17 +137,15 @@ export function SellerOverviewDashboard({ stores, userName }: Props) {
         </div>
       </div>
 
-      {/* ── 3 Stat Cards ──────────────────────────────────────────────────── */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        {/* Total Stores */}
         <Card className="rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-          <CardContent className="p-5 flex items-center gap-4">
+          <CardContent className="px-3 flex flex-col md:flex-row items-center gap-4">
             <div className="h-12 w-12 rounded-2xl bg-orange-100 flex items-center justify-center shrink-0">
               <Store className="h-6 w-6 text-orange-500" />
             </div>
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 items-center min-w-0">
               <p className="text-xs text-muted-foreground font-medium mb-0.5">Total Toko</p>
-              <div className="flex items-end gap-2">
+              <div className="flex flex-col md:flex-row items-center gap-2">
                 <p className="text-3xl font-extrabold text-foreground leading-none">{stores.length}</p>
                 <Badge variant="outline" className="text-[10px] font-bold text-green-600 bg-green-100 border-transparent hover:bg-green-100 mb-0.5 pointer-events-none">
                   {activeStores} Aktif
@@ -166,15 +155,14 @@ export function SellerOverviewDashboard({ stores, userName }: Props) {
           </CardContent>
         </Card>
 
-        {/* Total Products */}
         <Card className="rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-          <CardContent className="p-5 flex items-center gap-4">
+          <CardContent className="px-3 flex flex-col md:flex-row items-center gap-4">
             <div className="h-12 w-12 rounded-2xl bg-violet-100 flex items-center justify-center shrink-0">
               <Package className="h-6 w-6 text-violet-600" />
             </div>
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 items-center min-w-0">
               <p className="text-xs text-muted-foreground font-medium mb-0.5">Total Produk</p>
-              <div className="flex items-end gap-2">
+              <div className="flex flex-col md:flex-row items-center gap-2">
                 <p className="text-3xl font-extrabold text-foreground leading-none">{totalProducts}</p>
                 <Badge variant="outline" className="text-[10px] font-bold text-green-600 bg-green-100 border-transparent hover:bg-green-100 mb-0.5 pointer-events-none">
                   {activeProducts} Aktif
@@ -186,13 +174,13 @@ export function SellerOverviewDashboard({ stores, userName }: Props) {
 
         {/* Total Views */}
         <Card className="rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-          <CardContent className="p-5 flex items-center gap-4">
+          <CardContent className="px-3 flex flex-col md:flex-row items-center gap-4">
             <div className="h-12 w-12 rounded-2xl bg-blue-100 flex items-center justify-center shrink-0">
               <Eye className="h-6 w-6 text-blue-500" />
             </div>
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 items-center min-w-0">
               <p className="text-xs text-muted-foreground font-medium mb-0.5">Total Tampilan</p>
-              <div className="flex items-end gap-2">
+              <div className="flex flex-col md:flex-row items-center gap-2">
                 <p className="text-3xl font-extrabold text-foreground leading-none">—</p>
                 <span className="text-[11px] font-medium text-muted-foreground mb-0.5">Segera hadir</span>
               </div>
@@ -202,13 +190,13 @@ export function SellerOverviewDashboard({ stores, userName }: Props) {
 
         {/* WA Clicks */}
         <Card className="rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-          <CardContent className="p-5 flex items-center gap-4">
+          <CardContent className="px-3 flex flex-col md:flex-row items-center gap-4">
             <div className="h-12 w-12 rounded-2xl bg-green-100 flex items-center justify-center shrink-0">
               <ShoppingBag className="h-6 w-6 text-green-500" />
             </div>
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 items-center min-w-0">
               <p className="text-xs text-muted-foreground font-medium mb-0.5">WA Diklik</p>
-              <div className="flex items-end gap-2">
+              <div className="flex flex-col md:flex-row items-center gap-2">
                 <p className="text-3xl font-extrabold text-foreground leading-none">—</p>
                 <span className="text-[11px] font-medium text-muted-foreground mb-0.5">Segera hadir</span>
               </div>
@@ -302,7 +290,7 @@ export function SellerOverviewDashboard({ stores, userName }: Props) {
                           {store.products.length} produk · /{store.slug}
                         </p>
                       </div>
-                      <div className="flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="flex items-center gap-1.5">
                         <Button asChild variant="ghost" size="icon" className="h-8 w-8 rounded-lg text-muted-foreground hover:text-foreground">
                           <Link href={`/shop/${store.slug}`} target="_blank">
                             <ExternalLink className="h-3.5 w-3.5" />

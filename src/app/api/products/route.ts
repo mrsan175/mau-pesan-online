@@ -3,10 +3,6 @@ import { db } from "@/lib/db";
 import { products, stores } from "@/lib/db/schema";
 import { eq, and } from "drizzle-orm";
 
-/**
- * GET /api/products
- * Public — fetch all active products from active stores
- */
 export async function GET() {
   try {
     const rows = await db
